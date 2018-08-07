@@ -152,14 +152,18 @@ find . -maxdepth 1 -mtime +$1 -exec rm -rf {} \;
 
 # vi:nowrap:sw=4:ts=4
 
-PATH="/home/lukezeng/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/home/lukezeng/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/lukezeng/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/lukezeng/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/lukezeng/perl5"; export PERL_MM_OPT;
+#PATH="/home/lukezeng/perl5/bin${PATH+:}${PATH}"; export PATH;
+#PERL5LIB="/home/lukezeng/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+#PERL_LOCAL_LIB_ROOT="/home/lukezeng/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+#PERL_MB_OPT="--install_base \"/home/lukezeng/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/home/lukezeng/perl5"; export PERL_MM_OPT;
 
 # add below text to cbn boardfarm:
-export BFT_CONFIG="/home/luke/cbn/boardfarm-cbn/cbn.json"
-export BFT_OVERLAY="/home/luke/cbn/boardfarm-cbn"
+export BFT_CONFIG="../boardfarm-cbn/cbn.json"
+export BFT_OVERLAY="../boardfarm-cbn"
 #echo cbn | sudo -S service apparmor disable
 #echo cbn | sudo -S systemctl disable apparmor
+
+# spyder lang
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8

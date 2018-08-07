@@ -40,11 +40,12 @@ function RemoveTrailingWhitespace()
 endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 " ============================================
+" set encoding=utf-8
 " enable syntax highlighting
 syntax enable
 
 " show line numbers
-" set number
+set nonumber
 
 " comment color
 hi Comment ctermfg=lightblue
@@ -68,7 +69,7 @@ set sts=4
 set autoindent
 
 " show a visual line under the cursor's current line
-set cursorline
+"set cursorline
 
 " show the matching part of the pair for [] {} and ()
 set showmatch
