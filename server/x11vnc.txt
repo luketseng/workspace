@@ -1,0 +1,34 @@
+ubuntu VNC server install (use x11vnc)
+
+# install x11vnc
+$ apt-get install x11vnc
+
+# 產生密碼
+$ x11vnc -storepasswd
+
+# 執行server架設
+$ x11vnc -auth guess -forever -rfbauth /home/cbn/.vnc/passwd -rfbport 5900 -shared -geometry 1366x740
+
+# 開機自啟設定Ubuntu 15.04 以上 (systemd)
+$ sudo vi /etc/systemd/system/x11vnc.service
+
+# x11vnc.service 加入以下文本
+<x11vnc.service>
+[Unit]
+Description=Start x11vnc at startup.
+After=multi-user.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -auth guess -forever -rfbauth /home/<USERNAME>/.vnc/passwd -rfbport 5900 -shared -geometry 1280x768
+[Install]
+WantedBy=multi-user.target
+<x11vnc.service>
+
+# 修改權限與reload與啟用開機service
+$ sudo chmod u+x /etc/systemd/system/x11vnc.service
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable x11vnc.service
+
+
+# REF
+-loop -noxdamage -repeat -geometry 1280x768

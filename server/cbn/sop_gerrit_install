@@ -1,0 +1,45 @@
+# Gerrit server installation setps
+ 1) Install packages:
+
+	$ sudo apt update && sudo apt install git curl ldap-utils
+
+ 2) Install docker on host (see https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04 for more detail):
+
+	$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	$ sudo apt-get update
+	$ apt-cache policy docker-ce
+	$ sudo apt-get install -y docker-ce
+	$ sudo usermod -aG docker ${USER}
+
+ 3) Clone gerrit config repo for CBN:
+
+	$ mkdir -p git && cd git
+	$ git clone git@github.com:lgicbn/gerrit-config.git
+
+ 4) Update config and deploy gerrit:
+
+	$ vim users.cfg # add users
+	$ cp $user.pub pubkeys/$user.pubkey # optionally copy over users pub keys
+	$ ./cbn-deploy-gerrit-wrapper.sh
+
+ 5) Configure cron job, Jenkins job, or other tool to backup gerrit as often as you'd like:
+
+	$ . deploy-gerrit.sh
+	$ gerrit_backup foo.tgz
+	$ docker start gerrit
+
+================================================================
+gerrit_backup
+$ ./deploy-gerrit.sh gerrit_backup "$6122018_gerrt_backup.tar.gz"
+$ docker start gerrit
+================================================================
+Gerrit server and listen port
+http://172.16.1.237:8080<http://172.16.1.237:8080/>
+
+================================================================
+Docker turn on gerrit command
+$ docker start gerrit openldap-gerit
+
+==========Add user to users.cfg=====================================
+https://github.com/lgicbn/gerrit-config/blob/master/users.cfg

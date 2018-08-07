@@ -1,0 +1,40 @@
+git push origin HEAD:refs/for/master
+git push origin HEAD:refs/for/master/issues
+./bft -b mv1 -n mv1-1-1 -x connect -e NTL7465LG_868
+
+also someone creates these other test containers
+that have conflicts with the other containers
+
+mattsm@cbn-D830MT-2:~/git/boardfarm$ docker stop bft-node-eth2-test-new-subnet
+docker bft-node-eth2-test-new-subnet
+mattsm@cbn-D830MT-2:~/git/boardfarm$ docker rm bft-node-eth2-test-new-subnet
+bft-node-eth2-test-new-subnet
+mattsm@cbn-D830MT-2:~/git/boardfarm$ docker stop bft-node--create_container_eth1_static-101
+docker mr vbft-node--create_container_eth1_static-101
+mattsm@cbn-D830MT-2:~/git/boardfarm$ docker rm bft-node--create_container_eth1_static-101
+bft-node--create_container_eth1_static-101
+and bft-node-eth1-102
+
+刪除沒有內容的空行
+g/^$/d
+刪除包含有空格組成的空行
+g/^\s*$/d
+除以空格或tab開頭到結尾的空行
+g/^[ |\t]*$/d
+
+行末空格：\s\+$
+行首空格：^\+\s
+:%s/\s\+$//
+
+:r! cat  然後按Enter
+這個時候貼上程式碼 然後再按一次Enter
+按 CTRL+D
+
+# for wan interface connect
+ssh root@172.16.1.229
+# for lan interface connect
+ssh root@172.16.1.227 -p $lan_port
+password: bigfoot1
+
+# iperf
+$ sudo apt-get install lib32stdc++6 lib32z1 lib32z1-dev

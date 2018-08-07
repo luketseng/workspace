@@ -1,0 +1,27 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+
+# setting static ip
+#auto eth0
+#iface eth0 inet static
+#address 88:d7:f6:57:a6:64 #00:e0:4C:36:3e:4c
+#address 192.168.100.112
+#netmask 255.255.255.0
+#gateway 192.168.100.254
+
+#auto eth1
+#iface eth1 inet static
+#hwaddress 18:d6:c7:06:c1:9c  
+#address 172.16.1.49
+#netmask 255.255.255.0
+#gateway 172.16.1.254
+
+# static route
+up route add -net 172.16.70.0 netmask 255.255.255.0 gw 172.16.1.5 dev enx00e04c36fc05
+up route add -net 172.16.40.0 netmask 255.255.255.0 gw 172.16.1.9 dev enx00e04c36fc05
+up route add -net 172.16.48.0 netmask 255.255.255.0 gw 172.16.1.9 dev enx00e04c36fc05
+up route add -net 172.16.1.0 netmask 255.255.255.0 gw 172.16.1.1 dev enx00e04c36fc05
+up route add -net 192.168.100.0 netmask 255.255.255.0 gw 192.168.100.1 dev enp0s31f6
+up route add -host 10.118.250.6 gw 10.118.251.254 dev enx00e04c363dd2
+

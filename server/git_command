@@ -1,0 +1,31 @@
+git fetch + marge = git pull origin master
+git log --oneline --graph
+git log --graph --topo-order --decorate --oneline --all
+git diff e727e1a 2409dff
+
+#git custom setting
+$ git config --global alias.stash-unapply '!git stash show -p | git apply -R'
+$ git stash-unapply
+
+git reset --hard FETCH_HEAD
+git pull origin master
+
+#git branch, add, commit
+git checkout -b $pr_add_NTL7465LG_1666_test_case_v4
+git add $file -i
+git commit -m "devices: casa_cmts: $massage"
+git commit --amend -s
+
+# push project
+git push origin HEAD:refs/for/master
+git push sy_huang pr_add_casa_cmts_function_v2
+
+# push issue
+git commit --allow-empty -s
+git push origin HEAD:refs/for/master/issue
+
+# gerrit pull code
+# git ls-remote | grep "commit id" | grep refs/changes | awk '{print $2}'
+git ls-remote | grep 00de3fe | grep refs/changes | awk '{print $2}'
+git fetch origin refs/changes/45/45/1
+git checkout FETCH_HEAD -b refs/changes/45/45/1
