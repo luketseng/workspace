@@ -10,6 +10,12 @@ $ git stash-unapply
 git reset --hard FETCH_HEAD
 git pull origin master
 
+# get commit-msg file
+wget http://172.16.1.237:8080/tools/hooks/commit-msg
+cp commit-msg .git/hooks/
+ls .git/hooks/ -ail
+chmod u+x .git/hooks/commit-msg
+
 #git branch, add, commit
 git checkout -b $pr_add_NTL7465LG_1666_test_case_v4
 git add $file -i

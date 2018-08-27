@@ -1,0 +1,7 @@
+ssh
+vim
+tmux
+ctags
+enca
+samba
+snmp

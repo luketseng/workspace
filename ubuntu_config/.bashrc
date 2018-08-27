@@ -59,9 +59,9 @@ if [ "$TERM" != "dumb" ]; then
 fi
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -80,7 +80,7 @@ export PATH="$PATH:$HOME/bin"
 
 # Standard Aliases
 
-alias qex='exit'
+#alias qex='exit'
 alias lsort='ls -t'
 alias cls='clear'
 alias cp='cp -i'
@@ -90,13 +90,13 @@ alias mv='mv -i'
 alias rm='_rm'
 alias rrm='/bin/rm -i'	# real rm
 alias tma='tmux attach -t 0' #tmux attach -t 0
-alias scr='screen -D -R'
-alias scrr='screen -D -r'
+#alias scr='screen -D -R'
+#alias scrr='screen -D -r'
 alias vi='vim'
 alias viedit='vim -O'
 alias myrm='mv -t ~/trash'
 alias bbs='ssh ptt.cc -l bbs' #ssh bbs@ptt.cc
-alias pjson='python -mjson.tool'
+#alias pjson='python -mjson.tool'
 
 # Personal Aliases
 

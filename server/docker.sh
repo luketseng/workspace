@@ -19,6 +19,8 @@ set -x; IFACE=eth1 create_container_eth1_static wan-shared 172.16.1.220/24 172.1
 #docker exec -it bft-node-eth1-wan-shared /bin/bash
 ## docker for boardfarm ip:172.16.1.xxx (229, 232, 220)
 #ifconfig eth1 172.16.1.xxx netmask 255.255.255.0 && route add default gw 172.16.1.1
+## reboot start
+#@reboot echo cbn | sudo -S ~/cbn/boardfarm/docker.sh
 
 ## init docker node
 #sudo docker build -t bft:node bft-node

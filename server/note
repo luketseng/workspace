@@ -1,6 +1,14 @@
+''' note '''
+$ ./bft -b mv1 -n mv1-1-1 -x connect -e NTL7465LG_868
+
 git push origin HEAD:refs/for/master
 git push origin HEAD:refs/for/master/issues
-./bft -b mv1 -n mv1-1-1 -x connect -e NTL7465LG_868
+
+''' for wan interface connect '''
+ssh root@172.16.1.229
+''' for lan interface connect '''
+ssh root@172.16.1.227 -p $lan_port
+password: bigfoot1
 
 also someone creates these other test containers
 that have conflicts with the other containers
@@ -15,6 +23,7 @@ mattsm@cbn-D830MT-2:~/git/boardfarm$ docker rm bft-node--create_container_eth1_s
 bft-node--create_container_eth1_static-101
 and bft-node-eth1-102
 
+''' rm \s in vim '''
 刪除沒有內容的空行
 g/^$/d
 刪除包含有空格組成的空行
@@ -26,15 +35,22 @@ g/^[ |\t]*$/d
 行首空格：^\+\s
 :%s/\s\+$//
 
-:r! cat  然後按Enter
-這個時候貼上程式碼 然後再按一次Enter
-按 CTRL+D
+''' copy code to vim '''
+:r! cat & Enter
+copy & Enter
+CTRL+D
 
-# for wan interface connect
-ssh root@172.16.1.229
-# for lan interface connect
-ssh root@172.16.1.227 -p $lan_port
-password: bigfoot1
-
-# iperf
+''' iperf '''
 $ sudo apt-get install lib32stdc++6 lib32z1 lib32z1-dev
+
+'''board.mib["docsDevSwFilename"]
+Error in packet.
+Reason: (genError) A general failure occured
+'''
+
+def enable_web_gui(self, wan, board):
+    self.wan_ip=board.get_interface_ipaddr("wan0")
+    wan.sendline("snmpset -v 2c -c public %s %s.0 b 1" %(self.wan_ip, board.mib["cmConfigHfcServiceEnable"]))
+    wan.sendline("snmpset -v 2c -c public %s %s.0 s %s" %(self.wan_ip, board.mib["cmConfigCsrPassword"], self.password))
+    self.web_url = "http://" + self.wan_ip +'/common_page/login.html'
+    self.driver = webdriver.Firefox(firefox_options=self.options)
