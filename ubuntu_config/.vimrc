@@ -40,6 +40,11 @@ function RemoveTrailingWhitespace()
 endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 " ============================================
+"$ ls /usr/share/vim/vimNN/colors/ # where vimNN is vim version, e.g. vim74
+"blue.vim  darkblue.vim  default.vim  delek.vim  desert.vim  elflord.vim
+"evening.vim  koehler.vim  morning.vim  murphy.vim  pablo.vim  peachpuff.vim
+"README.txt  ron.vim  shine.vim  slate.vim  torte.vim  zellner.vim
+color desert
 " set encoding=utf-8
 " enable syntax highlighting
 syntax enable

@@ -52,17 +52,6 @@ esac
 #    . ~/.bash_aliases
 #fi
 
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-	eval "`dircolors -b`"
-	alias ls='_ls'
-fi
-
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -70,18 +59,24 @@ if [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
 
-
 #### Handle dirty's Requirements
-
 export EDITOR=vi
 export GDFONTPATH="$HOME/share/fonts"
 export LANG=zh_TW.UTF-8
 export PATH="$PATH:$HOME/bin"
 
-# Standard Aliases
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+	eval "`dircolors -b`"
+	alias ls='_ls'
+fi
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+alias lt='ls -t'
 
-#alias qex='exit'
-alias lsort='ls -t'
+# Standard Aliases
 alias cls='clear'
 alias cp='cp -i'
 alias du='du -h --max-depth=1'
@@ -89,23 +84,23 @@ alias h='history | grep'
 alias mv='mv -i'
 alias rm='_rm'
 alias rrm='/bin/rm -i'	# real rm
-alias tma='tmux attach -t 0' #tmux attach -t 0
-#alias scr='screen -D -R'
-#alias scrr='screen -D -r'
 alias vi='vim'
 alias viedit='vim -O'
 alias myrm='mv -t ~/trash'
 alias bbs='ssh ptt.cc -l bbs' #ssh bbs@ptt.cc
+alias tma='tmux at -t 0' # tmux attach -t 0
+alias tmd='tmux kill-session -t 0' # tmux kill-session -t 0
+alias tmr='tmux-session restore' # /bin/tmux-session restore
+#alias scr='screen -D -R'
+#alias scrr='screen -D -r'
 #alias pjson='python -mjson.tool'
 
 # Personal Aliases
-
 if [ -e $HOME/.alias ]; then
 	. $HOME/.alias
 fi
 
 # Local Functions and Commands
-
 function git_info {
 ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
 last_commit=$(git log --pretty=format:%at -1 2> /dev/null) || return;
