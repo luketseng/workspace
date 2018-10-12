@@ -4,25 +4,6 @@ $ ./bft -b mv1 -n mv1-1-1 -x connect -e NTL7465LG_868
 git push origin HEAD:refs/for/master
 git push origin HEAD:refs/for/master/issues
 
-''' for wan interface connect '''
-ssh root@172.16.1.229
-''' for lan interface connect '''
-ssh root@172.16.1.227 -p $lan_port
-password: bigfoot1
-
-also someone creates these other test containers
-that have conflicts with the other containers
-
-mattsm@cbn-D830MT-2:~/git/boardfarm$ docker stop bft-node-eth2-test-new-subnet
-docker bft-node-eth2-test-new-subnet
-mattsm@cbn-D830MT-2:~/git/boardfarm$ docker rm bft-node-eth2-test-new-subnet
-bft-node-eth2-test-new-subnet
-mattsm@cbn-D830MT-2:~/git/boardfarm$ docker stop bft-node--create_container_eth1_static-101
-docker mr vbft-node--create_container_eth1_static-101
-mattsm@cbn-D830MT-2:~/git/boardfarm$ docker rm bft-node--create_container_eth1_static-101
-bft-node--create_container_eth1_static-101
-and bft-node-eth1-102
-
 ''' rm \s in vim '''
 刪除沒有內容的空行
 g/^$/d
@@ -40,13 +21,12 @@ g/^[ |\t]*$/d
 copy & Enter
 CTRL+D
 
-''' iperf '''
-$ sudo apt-get install lib32stdc++6 lib32z1 lib32z1-dev
-
-'''board.mib["docsDevSwFilename"]
-Error in packet.
-Reason: (genError) A general failure occured
-'''
+'''change hostname''
+hostnamectl set-hostname new-hostname
+sudo vi /etc/hosts
+'''mount'''
+mount -t cifs -o username="Username",password="Password" //IP/share /mnt/smb
+umount /mnt/smb
 
 def enable_web_gui(self, wan, board):
     self.wan_ip=board.get_interface_ipaddr("wan0")

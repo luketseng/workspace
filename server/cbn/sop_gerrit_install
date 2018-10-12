@@ -34,12 +34,24 @@ gerrit_backup
 $ ./deploy-gerrit.sh gerrit_backup "$6122018_gerrt_backup.tar.gz"
 $ docker start gerrit
 ================================================================
+gerrit_restore
+./cbn-deploy-gerrit-wrapper.sh backup-file.tar.gz
+================================================================
 Gerrit server and listen port
 http://172.16.1.237:8080<http://172.16.1.237:8080/>
 
 ================================================================
 Docker turn on gerrit command
-$ docker start gerrit openldap-gerit
+$ docker start gerrit openldap-gerrit
 
 ==========Add user to users.cfg=====================================
 https://github.com/lgicbn/gerrit-config/blob/master/users.cfg
+$ ./cbn-deploy-gerrit-wrapper.sh update_users
+
+================================================================
+$ docker stop gerrit openldap-gerrit
+$ docker rm gerrit openldap-gerrit
+$ docker system prune -a
+$ docker volume prune
+$ cd ~luke/git/gerrit-config/
+$ ./cbn-deploy-gerrit-wrapper.sh; ./cbn-deploy-gerrit-wrapper.sh 20181003-gerrit-backup.tar.gz
