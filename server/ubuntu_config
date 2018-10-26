@@ -1,9 +1,13 @@
 # install package
 $ sudo apt-get install vim tmux ssh x11vnc samba
 
-# vim tmux
-$ scp luke@172.16.1.224:~/workstation/ubuntu.config.tar.gz .
-$ tar zxvf ubuntu.config.tar.gz
+# change hostname
+hostnamectl set-hostname new-hostname
+sudo vi /etc/hosts
+
+# mount
+mount -t cifs -o username="Username",password="Password" //IP/share /mnt/smb
+umount /mnt/smb
 
 # .vimrc copy error, install ctags
 $ apt-get install ctags
@@ -13,6 +17,11 @@ $ apt-get install enca
 $ enca -L zh_CN file
 $ enca -L zh_CN -x UTF-8 file
 $ enca -L zh_CN -x UTF-8 < file1 > file2
+
+# fix file with CRCF line
+dos2unix file.txt
+dos2unix -n file.txt output.txt
+sed -i.bak 's/\r$//' file.txt
 
 # Preparing an SD Card in Linux
 $ sudo fdisk -l # find: Disk /dev/sdc: 14.6 GiB, 15640559616 bytes, 30547968 sectors

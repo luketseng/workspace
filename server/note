@@ -1,6 +1,4 @@
-''' note '''
-$ ./bft -b mv1 -n mv1-1-1 -x connect -e NTL7465LG_868
-
+'''note'''
 git push origin HEAD:refs/for/master
 git push origin HEAD:refs/for/master/issues
 
@@ -16,17 +14,9 @@ g/^[ |\t]*$/d
 行首空格：^\+\s
 :%s/\s\+$//
 
-''' copy code to vim '''
-:r! cat & Enter
-copy & Enter
-CTRL+D
-
-'''change hostname''
-hostnamectl set-hostname new-hostname
-sudo vi /etc/hosts
-'''mount'''
-mount -t cifs -o username="Username",password="Password" //IP/share /mnt/smb
-umount /mnt/smb
+for b in `./bft -i | grep mv1 | awk '{print $1}'`; do echo test $b; done
+for f in *.cfg *.BIN; do docsis -d "$f" > $(echo "$f" | sed s/\\..*//g).txt; mv dialplan.txt $(echo "$f" | sed s/\\..*//g)-dialplan.txt; rm $f; done
+find /home/cbn/cbn/gerrit_backup/ -mtime +13 -type f -name "*" -exec rm -rf {} \;
 
 def enable_web_gui(self, wan, board):
     self.wan_ip=board.get_interface_ipaddr("wan0")
