@@ -1,9 +1,0 @@
-# open /etc/dhcp.conf
-interface eth0
-fallback nodhcp
-static ip_address=172.16.1.75
-static routers=172.16.0.9
-
-# reload and restart
-$ sudo dhcp -k
-$ sudo dhcp

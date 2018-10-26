@@ -1,0 +1,31 @@
+# CNR server PC
+IP: 172.16.1.2 (cbn, cbn)
+- use nrcmd command login CNR (username: admin, password:changeme)
+    c:\Program Files (x86)\Network Registrar\Local\bin
+- copy CM or MTA policy
+
+# start > program > Network Register 7.1.2.1 > Network Register 7.1.2.1 local CLI
+    $ policy create Policy_DS_LG_limit_100 clone=Policy_IPv6_LG_limit_100
+    $ save
+# When finish add CM and MTA client, should be re-flash DHCP server
+
+# CMTS
+- 64K
+    172.16.1.5 (root, motorola)
+- Casa
+	172.16.1.9 (root, casa)
+    scm <mac address>
+    scm | inc 40.19
+    clear cable modem <mac> reset
+
+# SVN repo url
+https://219.80.250.19:8443/svn/Boardfarm/trunk
+
+# \\mat-nas
+user, just4mat
+
+# console switch
+root, nti
+
+# gerrit password
+bdf7944b

@@ -1,0 +1,29 @@
+# 安装samba服务：
+$ sudo apt-get update
+$ sudo apt-get install samba (smbfs)
+
+# 修改 /etc/samba/smb.conf
+$ sudo vi /etc/samba/smb.conf
+
+# 在 max log size = 1000 下添加
+    security = user
+
+# 設置共享密码一个共享密码
+$ sudo smbpasswd -a $cbn
+
+# smbd service restart
+$ sudo service smbd restart
+
+$ sudo service smbd restart
+# 建立分享資料夾
+$ /home/luke/share
+
+再加入要分享資料夾
+[share]
+   comment = my share directory
+   path = /home/luke/
+   browseable = yes
+   writable = yes
+
+# windows connect samba
+\\ip\share_file

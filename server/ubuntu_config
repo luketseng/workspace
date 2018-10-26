@@ -1,0 +1,65 @@
+# install package
+$ sudo apt-get install vim tmux ssh x11vnc samba
+
+# vim tmux
+$ scp luke@172.16.1.224:~/workstation/ubuntu.config.tar.gz .
+$ tar zxvf ubuntu.config.tar.gz
+
+# .vimrc copy error, install ctags
+$ apt-get install ctags
+
+# vim encoding issue
+$ apt-get install enca
+$ enca -L zh_CN file
+$ enca -L zh_CN -x UTF-8 file
+$ enca -L zh_CN -x UTF-8 < file1 > file2
+
+# Preparing an SD Card in Linux
+$ sudo fdisk -l # find: Disk /dev/sdc: 14.6 GiB, 15640559616 bytes, 30547968 sectors
+$ sudo dd bs=1M if="file name" of=/dev/sdc
+
+# tar command
+$ tar zcvf FileName.tar.gz DirName
+$ tar zxvf FileName.tar.gz
+
+# ubuntu change interface name
+1. vi /etc/default/grub changing the line from
+GRUB_CMDLINE_LINUX="" to GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"
+2. and, finally run as root and reboot your system.
+$ sudo grub-mkconfig -o /boot/grub/gurb.cfg or sudo update-grub
+$ sudo reboot
+
+# 小寫 g 是指主群組，大寫 G 是指副群組
+$ sudo useradd -g groupname username
+# 把現有的使用者加入某群組：
+$ sudo usermod -a -G groupname username or $ sudo adduser username groupname
+# 新增使用者的時候就把某使用者加入某群組
+$ sudo useradd -G groupname username
+-------------------------
+定义：往系统中新添加账号
+格式：useradd [参数] 新建用户账号
+
+常用参数选项：
+-d：表示用户登录系统时的主目录，如果不使用该参数，系统自动在/home目录下，建立与用户名同名目录为主目录。
+-m：表示自动建立目录。
+-g：指定组名称。
+
+相关说明：
+1，Linux每个用户都要有一个主目录，主目录就是第一次登陆系统，用户的默认当前目录(/home/用户)；
+2，每一个用户必须有一个主目录，所以用useradd创建用户的时候，一定给用户指定一个主目录；
+3，用户的主目录一般要放到根目录的home目录下，用户的主目录和用户名是相同的；
+4，如果创建用户的时候，不指定组名，那么系统会自动创建一个和用户名一样的组名。
+
+以下例子加以说明：
+useradd -d /home/xiaoke xiaoke -m：表示创建xiaoke用户，如果/home/xiaoke目录不存在，就自动创建这个目录，同时用户属于xiaoke组
+useradd -d /home/aa aa -g keke -m：表示创建aa用户，主目录在/home/aa ，如果/home/aa不存在，就自动创建这个目录。同时用户属于kk组
+--------------
+Num08–>查看有哪些用户组：cat /etc/group
+格式一：cat /etc/group
+格式二：groupmod +三次tab键
+Num12–>为创建的普通用户添加sudo权限
+格式一：sudo usermod -a -G adm 用户名
+格式二：sudo usermod -a -G sudo 用户名
+Num13–>usermod -g与-G的区别：
+区别一：-g用来制定这个用户默认的用户组
+区别二：-G一般配合“-a”来完成向其它组添加
