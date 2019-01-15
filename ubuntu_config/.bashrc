@@ -124,7 +124,7 @@ echo "(${ref#refs/heads/} $info)";
 
 function _ls() {
 LANG=zh_TW.BIG5
-/bin/ls -C --group-directories-first --color=always $@ | /usr/bin/iconv -f big5 -t utf8
+/bin/ls -C -t -r --group-directories-first --color=always $@ | /usr/bin/iconv -f big5 -t utf8
 LANG=zh_TW.UTF-8
 }
 
