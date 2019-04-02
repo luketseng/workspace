@@ -1,0 +1,16 @@
+haste client
+
+Make this script (and put it in one your directories from $PATH for easier use)
+
+cd ~
+mkdir scripts; cd scripts; touch hpaste; chmod +x hpaste; vim hpaste;
+
+SCRIPT:
+#!/bin/bash
+url="http://172.16.1.237:7777"
+key="$(curl --silent --insecure --data-binary @/dev/fd/0  $url/documents | cut -d "\"" -f 4)"
+echo $url"/"$key
+
+HOW TO USE:
+lynn@cbn-client-2:~/cbn/boardfarm(master 11h26m)$ ./bft -b mv1 -n mv1-1-19 -x lynn | ~/source/hpaste
+http://172.16.1.237:7777/yusiyabana
