@@ -1,0 +1,35 @@
+# install Redis server
+$ sudo apt-get install redis-server
+
+# check Redis server ps
+$ ps -aux|grep redis
+
+# check Redis server status and port
+$ sudo /etc/init.d/redis-server status
+$ netstat -nlt|grep 6379
+
+# use command line control Redis server
+$ redis-cli
+redis 127.0.0.1:6379> help @generic # use tab to review item
+redis 127.0.0.1:6379> KEYS *
+
+# add password for redis
+$ sudo vi /etc/redis/redis.conf
+uncomment:
+    requirepass redisredis
+
+# use Redis service by python
+import redis
+r=redis.StrictRedis(host=env.REDIS_HOST, port=env.REDIS_PORT)
+
+# ref
+http://blog.fens.me/linux-redis-install/
+https://ithelp.ithome.com.tw/articles/10159547
+
+# redis-cli command
+http://www.runoob.com/redis/redis-pub-sub.html
+
+# redis coding for python
+https://www.cnblogs.com/kongzhongqijing/p/6867960.html
+https://maoxian.de/2015/08/1342.html
+https://www.jianshu.com/p/2639549bedc8
