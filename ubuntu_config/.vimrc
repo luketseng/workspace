@@ -45,7 +45,10 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 "evening.vim  koehler.vim  morning.vim  murphy.vim  pablo.vim  peachpuff.vim
 "README.txt  ron.vim  shine.vim  slate.vim  torte.vim  zellner.vim
 color desert
-" set encoding=utf-8
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,big5,latin1
+" set fileencoding=utf-8
+" set termencoding=utf-8
 " enable syntax highlighting
 syntax enable
 
