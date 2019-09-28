@@ -7,7 +7,7 @@ $ apt-get install x11vnc
 $ x11vnc -storepasswd
 
 # 執行server架設
-$ x11vnc -auth guess -forever -rfbauth /home/cbn/.vnc/passwd -rfbport 5900 -shared -geometry 1366x740
+$ x11vnc -auth guess -forever -rfbauth /home/$USERNAME/.vnc/passwd -rfbport 5900 -shared -geometry 1366x740
 
 # 開機自啟設定Ubuntu 15.04 以上 (systemd)
 $ sudo vi /etc/systemd/system/x11vnc.service
@@ -19,7 +19,7 @@ Description=Start x11vnc at startup.
 After=multi-user.target
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -auth guess -forever -rfbauth /home/<USERNAME>/.vnc/passwd -rfbport 5900 -shared -geometry 1280x768
+ExecStart=/usr/bin/x11vnc -auth guess -forever -rfbauth /home/$USERNAME/.vnc/passwd -rfbport 5900 -shared -geometry 1280x768
 [Install]
 WantedBy=multi-user.target
 <x11vnc.service>

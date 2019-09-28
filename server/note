@@ -17,10 +17,3 @@ g/^[ |\t]*$/d
 for b in `./bft -i | grep mv1 | awk '{print $1}'`; do echo test $b; done
 for f in *.cfg *.BIN; do docsis -d "$f" > $(echo "$f" | sed s/\\..*//g).txt; mv dialplan.txt $(echo "$f" | sed s/\\..*//g)-dialplan.txt; rm $f; done
 find /home/cbn/cbn/gerrit_backup/ -mtime +13 -type f -name "*" -exec rm -rf {} \;
-
-def enable_web_gui(self, wan, board):
-    self.wan_ip=board.get_interface_ipaddr("wan0")
-    wan.sendline("snmpset -v 2c -c public %s %s.0 b 1" %(self.wan_ip, board.mib["cmConfigHfcServiceEnable"]))
-    wan.sendline("snmpset -v 2c -c public %s %s.0 s %s" %(self.wan_ip, board.mib["cmConfigCsrPassword"], self.password))
-    self.web_url = "http://" + self.wan_ip +'/common_page/login.html'
-    self.driver = webdriver.Firefox(firefox_options=self.options)

@@ -123,9 +123,10 @@ echo "(${ref#refs/heads/} $info)";
 }
 
 function _ls() {
-LANG=zh_TW.BIG5
-/bin/ls -C -t -r --group-directories-first --color=always $@ | /usr/bin/iconv -f big5 -t utf8
-LANG=zh_TW.UTF-8
+#LANG=zh_TW.BIG5
+#/bin/ls -C --group-directories-first --color=always $@ | /usr/bin/iconv -f big5 -t utf8
+/bin/ls -C --group-directories-first --color=always $@
+#LANG=zh_TW.UTF-8
 }
 
 function old() {
@@ -154,11 +155,11 @@ find . -maxdepth 1 -mtime +$1 -exec rm -rf {} \;
 #PERL_MM_OPT="INSTALL_BASE=/home/lukezeng/perl5"; export PERL_MM_OPT;
 
 # add below text to cbn boardfarm:
-export BFT_CONFIG="../boardfarm-cbn/cbn.json"
-export BFT_OVERLAY="../boardfarm-cbn"
+#export BFT_CONFIG="../boardfarm-cbn/cbn.json"
+#export BFT_OVERLAY="../boardfarm-cbn"
 #echo cbn | sudo -S service apparmor disable
 #echo cbn | sudo -S systemctl disable apparmor
 
 # spyder lang
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+#export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8

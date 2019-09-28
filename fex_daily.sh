@@ -23,6 +23,7 @@ find ~/ -mtime +0 -type f -name "*TX_*" -exec rm -rf {} \;
 
 : '
 # for crontab -e
+05 19 * * * ./git/taifex_daily/mining_rpt.py
 10 19 * * 1-4 ./git/workspace/fex_daily.sh
 10 19 * * 5 ./git/workspace/fex_daily.sh 4
 '

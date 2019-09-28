@@ -1,8 +1,8 @@
 ssh
+x11vnc
 vim
 tmux
-ctags
+exuberant-ctags
 enca
 samba
-snmp
 wakeonlan

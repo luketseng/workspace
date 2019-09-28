@@ -16,7 +16,7 @@ cp commit-msg .git/hooks/
 ls .git/hooks/ -ail
 chmod u+x .git/hooks/commit-msg
 
-#git branch, add, commit
+# git branch, add, commit
 git checkout -b $pr_add_NTL7465LG_1666_test_case_v4
 git add $file -i
 git commit -m "devices: casa_cmts: $massage"
@@ -33,5 +33,3 @@ git push origin HEAD:refs/for/master/issue
 # gerrit pull code
 # git ls-remote | grep "commit id" | grep refs/changes | awk '{print $2}'
 git ls-remote | grep 00de3fe | grep refs/changes | awk '{print $2}'
-git fetch origin refs/changes/45/45/1
-git checkout FETCH_HEAD -b refs/changes/45/45/1

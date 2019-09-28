@@ -1,5 +1,20 @@
-# install package
-$ sudo apt-get install vim tmux ssh x11vnc samba
+# Preparing an SD Card in Linux
+$ sudo fdisk -l # find: Disk /dev/sda: 14.6 GiB, 15640559616 bytes, 30547968 sectors
+# sdcard backup and restore via img
+# sudo dd bs=1M if="file name" of=/dev/sdc
+sudo dd bs=80M if=/dev/sda status=progress | gzip > /home/gtwang/image-`date +%y%m%d`.gz # for backup
+sudo gzip -dc /home/luke/image.gz | dd bs=80M of=/dev/sda status=progress # for restore
+# ref: https://blog.gtwang.org/iot/backup-and-restore-raspberry-pi-sd-card/2/
+
+# install chinese keyboard input
+sudo apt-get gcin libappindicator1
+# set default input
+im-config
+# fix 'Cannot open /usr/share/gcin/table/X@.kbm'
+rm ~/.gcin/config/phonetic-keyboard*
+
+# one key to install packages via file(packages)
+xargs -a packages sudo apt-get install
 
 # change hostname
 hostnamectl set-hostname new-hostname
@@ -8,9 +23,6 @@ sudo vi /etc/hosts
 # mount
 mount -t cifs -o username="Username",password="Password" //IP/share /mnt/smb
 umount /mnt/smb
-
-# .vimrc copy error, install ctags
-$ apt-get install ctags
 
 # vim encoding issue
 $ apt-get install enca
@@ -22,10 +34,6 @@ $ enca -L zh_CN -x UTF-8 < file1 > file2
 dos2unix file.txt
 dos2unix -n file.txt output.txt
 sed -i.bak 's/\r$//' file.txt
-
-# Preparing an SD Card in Linux
-$ sudo fdisk -l # find: Disk /dev/sdc: 14.6 GiB, 15640559616 bytes, 30547968 sectors
-$ sudo dd bs=1M if="file name" of=/dev/sdc
 
 # tar command
 $ tar zcvf FileName.tar.gz DirName
