@@ -16,6 +16,20 @@ rm ~/.gcin/config/phonetic-keyboard*
 # one key to install packages via file(packages)
 xargs -a packages sudo apt-get install
 
+# setup web service via apach2
+sudo apt-get install apache2
+# enable userdir model
+sudo a2enmod userdir
+# restart service
+sudo service apache2 restart
+# set password for user
+sudo htpasswd -c /etc/apache2/.htpasswd $user # have tip for setting password & remove -c args if add another user
+# add setting to ~user/public_html/.htaccess
+AuthType Basic
+AuthName "You need to login"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
+
 # change hostname
 hostnamectl set-hostname new-hostname
 sudo vi /etc/hosts

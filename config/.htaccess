@@ -1,0 +1,10 @@
+SetEnvIf Request_URI ^/~.*/secert require_auth=true
+AuthType Basic
+AuthName "You need to login"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
+
+Order Deny,Allow
+Deny from all
+Allow from env=!require_auth
+Satisfy any
