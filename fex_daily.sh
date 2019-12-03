@@ -14,12 +14,12 @@ else
 fi
 
 echo "get $date_age~$today fex"
-./git/taifex_daily/mining_rpt.py -e $date_age $today TX 1 > TX_$today
-./git/taifex_daily/mining_rpt.py -e $date_age $today MTX 1 > MTX_$today
-sleep 1m
+./git/taifex_daily/mining_rpt.py -e TX 1 -d $date_age
+./git/taifex_daily/mining_rpt.py -e MTX 1 -d $date_age
+sleep 3
 find ~/git/taifex_daily/fut_rpt/ -mtime +15 -type f -name '*' -exec rm -rf {} \;
 find ~/git/taifex_daily/opt_rpt/ -mtime +15 -type f -name '*' -exec rm -rf {} \;
-find ~/ -mtime +0 -type f -name "*TX_*" -exec rm -rf {} \;
+find ~ -mtime +0 -type f -name "*TX_*" -exec rm -rf {} \;
 
 : '
 # for crontab -e
