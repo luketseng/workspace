@@ -56,7 +56,7 @@ syntax enable
 set nonumber
 
 " comment color
-hi Comment ctermfg=lightblue
+hi Comment ctermfg=blue
 
 " set tabs to have 4 spaces (tabstop)
 set ts=4
