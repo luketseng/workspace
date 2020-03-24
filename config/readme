@@ -1,7 +1,8 @@
 # Preparing an SD Card in Linux
 $ sudo fdisk -l # find: Disk /dev/sda: 14.6 GiB, 15640559616 bytes, 30547968 sectors
+# ref: https://blog.gtwang.org/linux/linux-add-format-mount-harddisk/
 # sdcard backup and restore via img
-# sudo dd bs=1M if="file name" of=/dev/sdc
+# sudo dd bs=1M if="file name" of=/dev/sda status=progress
 sudo dd bs=80M if=/dev/sda status=progress | gzip > /home/gtwang/image-`date +%y%m%d`.gz # for backup
 sudo gzip -dc /home/luke/image.gz | dd bs=80M of=/dev/sda status=progress # for restore
 # ref: https://blog.gtwang.org/iot/backup-and-restore-raspberry-pi-sd-card/2/
