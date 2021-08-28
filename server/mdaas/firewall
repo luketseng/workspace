@@ -1,0 +1,70 @@
+# firewall
+Zane@MDaaS-FS2:~/git/workspace/server/mdaas(master 91d4h)$ ip route
+default via 30.0.0.1 dev enp134s0
+30.0.0.0/14 dev enp134s0 proto kernel scope link src 30.0.6.246
+169.254.0.0/16 dev enp24s0 scope link metric 1002
+169.254.0.0/16 dev enp134s0 scope link metric 1004
+172.17.0.0/16 dev br-d858e5a15f98 proto kernel scope link src 172.17.0.1
+172.18.0.0/16 dev docker0 proto kernel scope link src 172.18.0.1
+172.19.0.0/16 dev br-4f783401d3b3 proto kernel scope link src 172.19.0.1
+192.168.8.0/22 dev enp24s0 proto kernel scope link src 192.168.11.101
+
+yum -y install firewalld
+systemctl start firewalld
+systemctl status firewalld -l
+
+- Set zone / interface
+[root@MDaaS-FS2 ~]# firewall-cmd --zone=internal --add-interface=enp24s0
+success
+[root@MDaaS-FS2 ~]# firewall-cmd --zone=public --add-interface=enp134s0
+success
+[root@MDaaS-FS2 ~]#
+
+~# firewall-cmd --get-active-zones
+internal
+interfaces: enp24s0
+public
+interfaces: enp134s0
+~#
+
+-   Zone: public
+[root@MDaaS-FS2 ~]# firewall-cmd --zone=public --remove-service=dhcpv6-client --permanent
+success
+
+[root@MDaaS-FS2 ~]# firewall-cmd --zone=public --add-masquerade --permanent
+success
+
+[root@MDaaS-FS2 ~]# firewall-cmd --zone=public --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp134s0
+  sources:
+  services: ssh
+  ports:
+  protocols:
+  masquerade: yes
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+
+-   Zone: internal
+[root@MDaaS-FS2 ~]# for s in http https ntp tftp dns dhcp; do  firewall-cmd --zone=internal --add-service=$s --permanent; done
+
+~# firewall-cmd --zone=internal --list-all
+internal (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp24s0
+  sources:
+  services: dhcp dhcpv6-client dns http https mdns ntp samba-client ssh tftp
+  ports:
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+
+[root@MDaaS-FS2 ~]# firewall-cmd --reload
