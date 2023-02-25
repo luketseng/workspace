@@ -146,6 +146,8 @@ function rmold() {
 find . -maxdepth 1 -mtime +$1 -exec rm -rf {} \;
 }
 
+source /usr/share/bash-completion/completions/git
+
 # vi:nowrap:sw=4:ts=4
 
 #PATH="/home/lukezeng/perl5/bin${PATH+:}${PATH}"; export PATH;
