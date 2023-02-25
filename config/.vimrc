@@ -87,3 +87,13 @@ let python_highlight_all = 1
 
 " 256 color terminal
 set t_Co=256
+
+" Shell Script Formatting
+filetype indent on
+autocmd FileType sh setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+"set autoindent
+"set smartindent
+"autocmd FileType sh setlocal ai et ts=4 sw=4
+"autocmd FileType sh setlocal shiftwidth=4 tabstop=4
+"autocmd BufNewFile,BufRead *.sh set filetype=sh
+"autocmd FileType sh setlocal autoindent
