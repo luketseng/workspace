@@ -90,7 +90,7 @@ set t_Co=256
 
 " Shell Script Formatting
 filetype indent on
-autocmd FileType sh setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 "set autoindent
 "set smartindent
 "autocmd FileType sh setlocal ai et ts=4 sw=4
