@@ -88,6 +88,9 @@ let python_highlight_all = 1
 " 256 color terminal
 set t_Co=256
 
+" Use system clipboard
+set paste
+
 " Shell Script Formatting
 filetype indent on
 autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
