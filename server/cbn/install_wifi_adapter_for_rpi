@@ -1,0 +1,6 @@
+# install wifi adapter
+git clone https://github.com/EntropicEffect/rtl8822bu.git
+cd rtl8822bu
+make
+sudo make install
+sudo reboot

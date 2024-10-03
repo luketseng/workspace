@@ -1,0 +1,26 @@
+sudo apt-get install tightvncserver
+sudo vi /etc/systemd/system/tightvncserver.service
+# add config as below
+[Unit]
+Description=TightVNC Server
+After=sshd.service
+
+[Service]
+Type=dbus
+ExecStart=/usr/bin/tightvncserver :1 -geometry 1280x1024
+User=pi
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+#end
+
+sudo chown root:root /etc/systemd/system/tightvncserver.service
+sudo chmod 755 /etc/systemd/system/tightvncserver.service
+sudo systemctl enable tightvncserver.service
+
+
+# 3. edit /etc/rc.local and add the following lines using the port numbers assigned:
+sudo -u root /usr/bin/vncserver :1 -geometry 1024x768 -depth 16
+sudo -u pi /usr/bin/vncserver :2 -geometry 1024x768 -depth 16
+sudo -u douglas /usr/bin/vncserver :3 -geometry 1024x768 -depth 16
