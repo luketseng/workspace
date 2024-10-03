@@ -7,4 +7,25 @@ Require valid-user
 Order Deny,Allow
 Deny from all
 Allow from env=!require_auth
+AddCharset utf-8 .html .css .php .txt .js
 Satisfy any
+
+<Files "*TX_*">
+  Order allow,deny
+  Deny from all
+</Files>
+
+<Files "resume_luke.pdf">
+  Order allow,deny
+  Deny from all
+</Files>
+
+<FilesMatch "cert_again.zip">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+#<Directory "bootstrap">
+#  Order allow,deny
+#  Deny from all
+#</Directory>
