@@ -20,7 +20,7 @@ install_dependencies() {
     if [ "$OS" == "centos" ]; then
         sudo yum update -y
         sudo yum install -y git curl vim python3 python3-pip
-    elif [ "$OS" == "ubuntu" ] || [ "$OS" == "debian" ]; then
+    elif [ "$OS" == "ubuntu" ] || [ "$OS" == "debian" ] || [ "$OS" == "raspbian" ]; then
         sudo apt-get update
         sudo apt-get install -y git curl vim python3 python3-pip
     else
