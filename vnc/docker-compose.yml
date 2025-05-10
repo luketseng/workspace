@@ -1,0 +1,27 @@
+# version: '3.8'
+
+services:
+  taifex-vnc:
+    image: kaixhin/vnc
+    container_name: taifex-vnc
+    ports:
+      - "5902:5901"  # 給 noVNC 使用
+    volumes:
+      - ./taifex_daily:/root/taifex_daily  # 映射你的爬蟲專案到容器內
+    shm_size: 2g
+
+  taifex-novnc:
+    image: theasp/novnc
+    container_name: taifex-novnc
+    ports:
+      - "7900:8080"  # Web VNC 瀏覽用 http://host:7900
+    environment:
+      - VNC_SERVER=taifex-vnc:5901
+
+  taifex-web:
+    image: httpd:alpine
+    container_name: taifex-web
+    ports:
+      - "8080:80"  # 本機 8080 對應 Apache 容器的 80
+    volumes:
+      - ./taifex_web:/usr/local/apache2/htdocs/
