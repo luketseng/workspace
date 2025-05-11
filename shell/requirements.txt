@@ -1,5 +1,5 @@
 flake8>=6.0.0
 flake8-strings>=0.1.1
-pylint>=3.0.0
 black>=24.0.0
 autopep8>=2.0.0
+pylint>=3.0.0

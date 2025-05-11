@@ -1,5 +1,5 @@
 openssh-server
 git
-ctags
 vim
 tmux
+wakeonlan
