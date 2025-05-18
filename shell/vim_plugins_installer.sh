@@ -59,7 +59,7 @@ install_vim_plug() {
 create_vimrc() {
     echo "Creating new .vimrc configuration file..."
 
-    cat > ~/.vimrc.zane << 'EOF'
+    cat > ~/.vimrc.base << 'EOF'
 "==============================================================================
 " Vim Configuration
 "==============================================================================
@@ -271,20 +271,6 @@ let g:ale_fixers = {
 
 let g:ale_echo_msg_format = '[%linter%] %s'
 
-" Tagbar settings
-nmap <F8> :TagbarToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-nnoremap <leader>T :TagbarOpen<CR>
-" let g:tagbar_width = 30
-let g:tagbar_compact = 1
-let g:tagbar_autofocus = 1
-
-" NERDTree settings
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
-nnoremap <leader>l :bnext<CR>
-nnoremap <leader>h :bprev<CR>
-
 " Airline settings
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -326,6 +312,20 @@ noremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>tt :call ToggleTheme()<CR>
 nnoremap <leader>tl :call ShowCurrentTheme()<CR>
 nnoremap <leader>hh :call ShowVimHelp()<CR>
+
+" Tagbar settings
+nmap <F8> :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>T :TagbarOpen<CR>
+" let g:tagbar_width = 30
+let g:tagbar_compact = 1
+let g:tagbar_autofocus = 1
+
+" NERDTree settings
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>l :bnext<CR>
+nnoremap <leader>h :bprev<CR>
 
 "==============================================================================
 " Visual Settings
