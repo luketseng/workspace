@@ -85,4 +85,18 @@ if ! source ~/.bashrc; then
 fi
 echo "------- [INFO] Please run command: 'source ~/.bashrc' if run bash without 'exec'"
 
+# Set system timezone
+echo "Current system timezone: $(timedatectl | grep 'Time zone')"
+read -p "Do you want to change the timezone to Asia/Taipei? (y/n): " answer
+
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    echo "Changing timezone to Asia/Taipei..."
+    sudo timedatectl set-timezone Asia/Taipei
+    echo "Timezone changed! The current system timezone is:"
+    timedatectl | grep 'Time zone'
+else
+    echo "No changes were made."
+fi
+
+
 echo "Init setup completed."

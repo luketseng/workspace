@@ -1,0 +1,104 @@
+# ==== Configurable Variables ====
+SRC_DIR     ?= $(HOME)            # For backup-dir: directory to archive
+OUTPUT      ?= my_backup      # Base name of the archive (no extension)
+COMP        ?= tar                # Compression type: tar, gz, bz2, xz
+EXCLUDES    ?=                    # For backup-dir: paths to exclude
+FILES       ?=                    # For backup: files/directories to archive
+
+
+# ==== Compression Handling (fixed) ====
+# Make sure to trim any whitespace
+OUTPUT_CLEAN := $(strip $(OUTPUT))
+EXT := $(if $(filter $(COMP),gz),tar.gz,$(if $(filter $(COMP),bz2),tar.bz2,$(if $(filter $(COMP),xz),tar.xz,tar)))
+
+TAR_FLAG := $(if $(filter $(COMP),gz),z,$(if $(filter $(COMP),bz2),j,$(if $(filter $(COMP),xz),J,)))
+
+ARCHIVE_FILE := $(OUTPUT_CLEAN).$(EXT)
+
+# build full tar flags (no space between -c and compression flag, no extra spaces!)
+TAR_CREATE := -c$(TAR_FLAG)f
+TAR_LIST   := -t$(TAR_FLAG)f
+TAR_EXTRACT:= -x$(TAR_FLAG)vf
+
+EXCLUDE_ARGS := $(foreach item,$(EXCLUDES),--exclude=$(item))
+
+# ==== Main Targets ====
+
+.PHONY: backup backup-dir clean list extract extract-file
+
+backup:
+	@if [ -z "$(FILES)" ]; then \
+		echo "❗ Error: FILES variable is required (e.g. make backup FILES=\"a.txt dir/\")"; \
+		exit 1; \
+	fi
+	@echo "🔄 Creating archive: $(ARCHIVE_FILE) from: $(FILES)"
+	tar $(TAR_CREATE) "$(ARCHIVE_FILE)" $(FILES)
+
+backup-dir:
+	@echo "📦 Creating archive from directory: $(SRC_DIR)"
+	tar $(TAR_CREATE) "$(ARCHIVE_FILE)" -C $(SRC_DIR) . $(EXCLUDE_ARGS)
+
+list:
+	@echo "📜 Listing contents of $(ARCHIVE_FILE):"
+	tar $(TAR_LIST) "$(ARCHIVE_FILE)"
+
+extract:
+	@echo "📦 Extracting $(ARCHIVE_FILE) to $(SRC_DIR)"
+	tar $(TAR_EXTRACT) "$(ARCHIVE_FILE)" -C $(SRC_DIR)
+
+extract-file:
+	@if [ -z "$(FILE)" ] || [ -z "$(TARGET)" ]; then \
+		echo "❗ Error: Requires FILE and TARGET variables"; \
+		echo "Usage: make extract-file FILE=path/in/archive TARGET=output_dir"; \
+		exit 1; \
+	fi
+	@echo "📂 Extracting file: $(FILE) → $(TARGET)"
+	tar $(TAR_EXTRACT) "$(ARCHIVE_FILE)" -C $(TARGET) $(FILE)
+
+clean:
+	@echo "🧹 Cleaning up archives: $(OUTPUT).*"
+	rm -f $(OUTPUT).*
+
+# ==== Help ====
+
+help:
+	@echo ""
+	@echo "📦 Tar Archive Management Makefile"
+	@echo "-----------------------------------"
+	@echo "Available targets:"
+	@echo "  make backup         Create archive from FILES"
+	@echo "  make backup-dir     Create archive from SRC_DIR"
+	@echo "  make clean          Delete generated archives"
+	@echo "  make list           List contents of archive"
+	@echo "  make extract        Extract archive to SRC_DIR"
+	@echo "  make extract-file   Extract a single file"
+	@echo ""
+	@echo "Variables you can override:"
+	@echo "  SRC_DIR=<path>        Directory to archive (default: \$$HOME)"
+	@echo "  OUTPUT=<n>         Archive base name (default: my_backup)"
+	@echo "  COMP=tar|gz|bz2|xz    Compression type (default: tar)"
+	@echo "  EXCLUDES='dir file'   Space-separated paths to exclude"
+	@echo "  FILE=<path>           File inside archive to extract"
+	@echo "  TARGET=<path>         Destination for extract-file"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make backup FILES=\"file1 dir1\" OUTPUT=myfiles COMP=gz"
+	@echo "    → Create archive of specified files (output: myfiles.tar.gz)"
+	@echo ""
+	@echo "  make backup-dir SRC_DIR=/path/to/project OUTPUT=project COMP=xz"
+	@echo "    → Archive project directory with xz compression (output: project.tar.xz)"
+	@echo ""
+	@echo "  make backup-dir SRC_DIR=\$(pwd) OUTPUT=workspace"
+	@echo "    → Archive current directory (output: workspace.tar)"
+	@echo ""
+	@echo "  make list COMP=tar OUTPUT=dotfiles"
+	@echo "    → List contents of dotfiles.tar"
+	@echo ""
+	@echo "  make extract COMP=tar OUTPUT=dotfiles SRC_DIR=/tmp"
+	@echo "    → Extract dotfiles.tar into /tmp"
+	@echo ""
+	@echo "  make extract-file COMP=tar OUTPUT=dotfiles FILE=.bashrc TARGET=/tmp"
+	@echo "    → Extract .bashrc from dotfiles.tar into /tmp"
+	@echo ""
+	@echo "  make clean OUTPUT=dotfiles"
+	@echo "    → Delete all dotfiles.tar* files"

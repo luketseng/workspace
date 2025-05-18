@@ -1,0 +1,9 @@
+git
+curl
+ipmitool
+netcat-openbsd
+vim
+tmux
+exuberant-ctags
+jq
+make

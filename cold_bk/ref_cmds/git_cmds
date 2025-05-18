@@ -31,5 +31,10 @@ git commit --allow-empty -s
 git push origin HEAD:refs/for/master/issue
 
 # gerrit pull code
-# git ls-remote | grep "commit id" | grep refs/changes | awk '{print $2}'
-git ls-remote | grep 00de3fe | grep refs/changes | awk '{print $2}'
+$ git ls-remote | grep "commit id" | grep refs/changes | awk '{print $2}'
+$ git ls-remote | grep 00de3fe | grep refs/changes | awk '{print $2}'
+
+# Restore file to HEAD via git
+$ git restore config/.vimrc
+# If you want to ensure you only revert this file and not others, you can use:
+$ git restore --staged config/.vimrc
