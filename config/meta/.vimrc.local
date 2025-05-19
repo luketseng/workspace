@@ -1,115 +1,4 @@
 "==============================================================================
-" Vim Configuration
-"==============================================================================
-
-"==============================================================================
-" Basic Settings
-"==============================================================================
-" Editor behavior
-syntax on                              " 啟用語法高亮
-set nonumber                           " 顯示行號
-set norelativenumber                   " 顯示相對行號
-set cursorline                         " 高亮當前行
-set wrap                               " 自動換行
-set showcmd                            " 顯示命令
-set wildmenu                           " 命令行補全
-set showmatch                          " 顯示匹配的括號
-set hlsearch                           " 搜索結果高亮
-set incsearch                          " 增量搜索
-set ignorecase                         " 搜索忽略大小寫
-set smartcase                          " 智能大小寫搜索
-set backspace=indent,eol,start         " 退格鍵工作方式
-set ruler                              " 顯示游標位置
-set laststatus=2                       " 總是顯示狀態欄
-set scrolloff=5                        " 始終顯示游標上下 5 行內容
-set mouse-=a                           " 啟用滑鼠
-set clipboard=unnamed                  " 使用系統剪貼板
-set history=1000                       " 命令歷史數量
-set t_Co=256                           " 啟用256色
-set background=dark                    " 深色背景
-
-" Indentation and formatting
-set autoindent                         " 自動縮進
-set smartindent                        " 智能縮進
-set tabstop=4                          " Tab 寬度為 4 個空格
-set softtabstop=4                      " 編輯時 Tab 寬度為 4 個空格
-set shiftwidth=4                       " 縮進寬度為 4 個空格
-set expandtab                          " 使用空格代替 Tab
-
-" Encoding
-set encoding=utf-8                     " 編碼設置為 UTF-8
-set fileencoding=utf-8                 " 文件編碼
-
-"==============================================================================
-" Plugins
-"==============================================================================
-call plug#begin('~/.vim/plugged')
-
-" Code quality and formatting
-Plug 'dense-analysis/ale'              " Linting and fixing
-Plug 'psf/black'                       " Python formatter
-
-" UI enhancements
-Plug 'vim-airline/vim-airline'         " Status line
-Plug 'vim-airline/vim-airline-themes'  " Status line themes
-Plug 'Yggdroot/indentLine'             " Indent guides
-Plug 'preservim/nerdtree'              " File tree
-Plug 'preservim/tagbar'                " Code structure display
-
-" Themes
-Plug 'tomasr/molokai'                  " Molokai theme
-Plug 'morhetz/gruvbox'                 " Gruvbox theme
-Plug 'joshdick/onedark.vim'            " One Dark theme
-
-" Language support
-Plug 'elzr/vim-json'                   " JSON support
-Plug 'Shougo/neocomplcache'            " Code completion
-
-call plug#end()
-
-"==============================================================================
-" Plugin Settings
-"==============================================================================
-" ALE (Linting)
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
-let g:ale_fix_on_save = 0
-" Tell ALE exactly where to find the black executable
-let g:ale_python_black_executable = expand('~/.local/bin/black')
-let g:ale_python_black_options = '--line-length=120'
-
-" Linters configuration
-let g:ale_linters = {
-    \   'python': ['flake8'],
-    \   'yaml': ['yamllint'],
-    \}
-
-" Fixers configuration
-let g:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \   'python': ['black', 'remove_trailing_lines', 'trim_whitespace'],
-    \   'yaml': ['remove_trailing_lines', 'trim_whitespace'],
-    \   'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace'],
-    \}
-
-let g:ale_echo_msg_format = '[%linter%] %s'
-
-" Airline settings
-let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme = 'bubblegum'
-
-" JSON settings
-let g:vim_json_syntax_conceal = 0
-
-" Indent guides
-let g:indentLine_char = '┊'
-
-" Code completion
-let g:neocomplcache_enable_at_startup = 1
-
-"==============================================================================
 " Theme Settings
 "==============================================================================
 " Available themes: desert, molokai, gruvbox, onedark
@@ -294,9 +183,9 @@ function! SaveWithALEAndNewline()
     ALEFix
 
     " If the last line is not empty, append an empty line at the end
-    if getline('$') != ''
-        call append(line('$'), '')
-    endif
+    " if getline('$') != ''
+    "     call append(line('$'), '')
+    " endif
 
     " Write the current buffer to disk
     write

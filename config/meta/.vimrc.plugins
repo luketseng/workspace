@@ -1,0 +1,69 @@
+"==============================================================================
+" Plugins
+"==============================================================================
+call plug#begin('~/.vim/plugged')
+
+" Code quality and formatting
+Plug 'dense-analysis/ale'              " Linting and fixing
+Plug 'psf/black'                       " Python formatter
+
+" UI enhancements
+Plug 'vim-airline/vim-airline'         " Status line
+Plug 'vim-airline/vim-airline-themes'  " Status line themes
+Plug 'Yggdroot/indentLine'             " Indent guides
+Plug 'preservim/nerdtree'              " File tree
+Plug 'preservim/tagbar'                " Code structure display
+
+" Themes
+Plug 'tomasr/molokai'                  " Molokai theme
+Plug 'morhetz/gruvbox'                 " Gruvbox theme
+Plug 'joshdick/onedark.vim'            " One Dark theme
+
+" Language support
+Plug 'elzr/vim-json'                   " JSON support
+Plug 'Shougo/neocomplcache'            " Code completion
+
+call plug#end()
+
+"==============================================================================
+" Plugin Settings
+"==============================================================================
+" ALE (Linting)
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_fix_on_save = 0
+" Tell ALE exactly where to find the black executable
+let g:ale_python_black_executable = expand('~/.local/bin/black')
+let g:ale_python_black_options = '--line-length=120'
+
+" Linters configuration
+let g:ale_linters = {
+    \   'python': ['flake8'],
+    \   'yaml': ['yamllint'],
+    \}
+
+" Fixers configuration
+let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'python': ['black', 'remove_trailing_lines', 'trim_whitespace'],
+    \   'yaml': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace'],
+    \}
+
+let g:ale_echo_msg_format = '[%linter%] %s'
+
+" Airline settings
+let g:airline_powerline_fonts = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_theme = 'bubblegum'
+
+" JSON settings
+let g:vim_json_syntax_conceal = 0
+
+" Indent guides
+let g:indentLine_char = '┊'
+
+" Code completion
+let g:neocomplcache_enable_at_startup = 1
+

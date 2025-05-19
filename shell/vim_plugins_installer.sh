@@ -59,7 +59,7 @@ install_vim_plug() {
 create_vimrc() {
     echo "Creating new .vimrc configuration file..."
 
-    cat > ~/.vimrc.base << 'EOF'
+    cat > ~/.vimrc << 'EOF'
 "==============================================================================
 " Vim Configuration
 "==============================================================================
@@ -351,9 +351,10 @@ main() {
     install_dependencies
     # backup_vimrc
     install_vim_plug
-    create_vimrc
+    # create_vimrc
     install_plugins
     echo "✅ Installation complete. Please restart Vim to apply configuration."
 }
 
 main
+
