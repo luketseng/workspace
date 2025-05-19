@@ -163,6 +163,37 @@ nnoremap <leader>h :bprev<CR>
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
+" Define custom save command with ALE fix and newline handling
+function! SaveWithALEAndNewline()
+    if &filetype == ''
+        " Skip for files without a filetype
+        execute 'write'
+        return
+    endif
+
+    " Create a one-time autocommand that will execute after ALE fix is completed
+    augroup ALEFixAndSave
+        autocmd!
+        autocmd User ALEFixPost call AfterALEFixCompleted()
+    augroup END
+
+    " Run ALEFix (asynchronously)
+    ALEFix
+endfunction
+
+function! AfterALEFixCompleted()
+    " Add an empty line at the end of file if the last line is not empty
+    if getline('$') != ''
+        call append(line('$'), '')
+    endif
+
+    " Save the file
+    execute 'write'
+
+    " Clean up the autocommand group
+    autocmd! ALEFixAndSave
+    augroup! ALEFixAndSave
+endfunction
 
 " Automatically run ALEFix and add a blank line at the end when saving a file
 augroup SaveWithFixAndNewline
@@ -172,25 +203,4 @@ augroup SaveWithFixAndNewline
     " comment out the line above and uncomment the one below:
     " autocmd BufWriteCmd *.py,*.js call SaveWithALEAndNewline()
 augroup END
-
-function! SaveWithALEAndNewline()
-    " If the filetype is not set, skip the custom save logic
-    if &filetype == ''
-        return
-    endif
-
-    " Run ALEFix to apply automatic formatting/fixes before saving
-    " ALEFix is asynchronous and may conflict with :write if run immediately after
-    " This can cause the warning: 'The file was changed before fixing finished'
-    " ALEFix
-    " sleep 500m
-
-    " If the last line is not empty, append an empty line at the end
-    if getline('$') != ''
-        call append(line('$'), '')
-    endif
-
-    " Write the current buffer to disk
-    write
-endfunction
 
