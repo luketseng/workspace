@@ -180,12 +180,15 @@ function! SaveWithALEAndNewline()
     endif
 
     " Run ALEFix to apply automatic formatting/fixes before saving
-    ALEFix
+    " ALEFix is asynchronous and may conflict with :write if run immediately after
+    " This can cause the warning: 'The file was changed before fixing finished'
+    " ALEFix
+    " sleep 500m
 
     " If the last line is not empty, append an empty line at the end
-    " if getline('$') != ''
-    "     call append(line('$'), '')
-    " endif
+    if getline('$') != ''
+        call append(line('$'), '')
+    endif
 
     " Write the current buffer to disk
     write

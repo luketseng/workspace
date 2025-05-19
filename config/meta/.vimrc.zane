@@ -291,7 +291,10 @@ function! SaveWithALEAndNewline()
     endif
 
     " Run ALEFix to apply automatic formatting/fixes before saving
+    " ALEFix is asynchronous and may conflict with :write if run immediately after
+    " This can cause the warning: 'The file was changed before fixing finished'
     ALEFix
+    sleep 500m
 
     " If the last line is not empty, append an empty line at the end
     if getline('$') != ''
