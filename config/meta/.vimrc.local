@@ -1,4 +1,29 @@
 "==============================================================================
+" Vim Airline custom user/plugin overrides and mappings
+"==============================================================================
+
+" Override airline theme normal mode palette (personal preference)
+function! AirlineOverrideNormalMode()
+    let g:airline#themes#bubblegum#palette.normal = {
+        \ 'airline_a': ['#afd787', '#444444', 236, 7, ''],
+        \ 'airline_b': ['#b2b2b2', '#3a3a3a', 249, 237, ''],
+        \ 'airline_c': ['#afd787', '#444444', 7, 238, ''],
+        \ 'airline_x': ['#afd787', '#444444', 7, 238, ''],
+        \ 'airline_y': ['#b2b2b2', '#3a3a3a', 249, 237, ''],
+        \ 'airline_z': ['#303030', '#afd787', 236, 7, ''],
+        \ 'airline_a_to_airline_b': ['#afd787', '#3a3a3a', '150', '237', ''],
+        \ 'airline_b_to_airline_c': ['#3a3a3a', '#444444', '237', '238', ''],
+        \ 'airline_c_to_airline_x': ['#444444', '#444444', '238', '238', ''],
+        \ 'airline_x_to_airline_y': ['#3a3a3a', '#444444', '237', '238', ''],
+        \ 'airline_y_to_airline_z': ['#afd787', '#3a3a3a', '150', '237', ''],
+        \ }
+endfunction
+
+" Apply the custom airline palette after the theme loads
+" autocmd VimEnter * call AirlineOverrideNormalMode()
+autocmd User AirlineAfterTheme call AirlineOverrideNormalMode()
+
+"==============================================================================
 " Theme Settings
 "==============================================================================
 " Available themes: desert, molokai, gruvbox, onedark
