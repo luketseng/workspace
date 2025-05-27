@@ -229,3 +229,25 @@ augroup SaveWithFixAndNewline
     " autocmd BufWriteCmd *.py,*.js call SaveWithALEAndNewline()
 augroup END
 
+" Replace wq with ALEFix and append newline
+command! -nargs=0 WqFix call s:WqWithFix()
+
+function! s:WqWithFix()
+    if &filetype != ''
+        " exec ALEFix
+        ALEFix
+        "  wait ALEFix finish
+        while exists('*ale#engine#IsRunning') && ale#engine#IsRunning()
+            sleep 100m
+        endwhile
+    endif
+    " append newline
+    if getline('$') != ''
+        call append(line('$'), '')
+    endif
+    write
+    quit
+endfunction
+
+cabbrev wq WqFix
+
