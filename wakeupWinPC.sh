@@ -10,9 +10,9 @@
 BROADCAST_IP="192.168.10.255"
 
 # Configure the MAC address of each device
-DEVICE2_MAC="3C:7C:3F:20:22:DB" # Home
-DEVICE3_MAC="00:E0:4C:94:AB:0D" # USB HUB
-DEVICE1_MAC="74:56:3C:40:DE:33" # Home_borrow_MB
+DEVICE1_MAC="3C:7C:3F:20:22:DB" # Home
+DEVICE2_MAC="00:E0:4C:94:AB:0D" # USB HUB
+DEVICE3_MAC="74:56:3C:40:DE:33" # Home_borrow_MB
 
 case "$1" in
   1)
