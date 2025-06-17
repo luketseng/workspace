@@ -5,8 +5,9 @@
 function Initialize-SSHKey {
     Write-Host "=== SSH Key Management ===" -ForegroundColor Green
 
-    # Check if SSH key exists
     $keyPath = if ($IsWindows) { "$env:USERPROFILE\.ssh\id_ed25519.pub" } else { "$HOME/.ssh/id_ed25519.pub" }
+    $sshDir = if ($IsWindows) { "$env:USERPROFILE\.ssh" } else { "$HOME/.ssh" }
+    $keyFile = if ($IsWindows) { "$env:USERPROFILE\.ssh\id_ed25519" } else { "$HOME/.ssh/id_ed25519" }
 
     if (Test-Path $keyPath) {
         Write-Host "SSH key already exists at: $keyPath" -ForegroundColor Yellow
@@ -14,33 +15,51 @@ function Initialize-SSHKey {
         $pubkey = $pubkey.Trim()
         Write-Host "Public key content:" -ForegroundColor Cyan
         Write-Host $pubkey -ForegroundColor White
-    } else {
-        Write-Host "SSH key not found. Creating new SSH key..." -ForegroundColor Yellow
 
-        # Create .ssh directory if it doesn't exist
-        $sshDir = if ($IsWindows) { "$env:USERPROFILE\.ssh" } else { "$HOME/.ssh" }
-        if (-not (Test-Path $sshDir)) {
-            New-Item -ItemType Directory -Path $sshDir -Force | Out-Null
-            Write-Host "Created SSH directory: $sshDir" -ForegroundColor Green
-        }
-
-        # Generate SSH key
-        $keyFile = if ($IsWindows) { "$env:USERPROFILE\.ssh\id_ed25519" } else { "$HOME/.ssh/id_ed25519" }
-        ssh-keygen -t ed25519 -f $keyFile -N ""
-
-        if (Test-Path $keyPath) {
-            Write-Host "SSH key created successfully!" -ForegroundColor Green
-            $pubkey = Get-Content $keyPath -Raw | Out-String
-            $pubkey = $pubkey.Trim()
-            Write-Host "Public key content:" -ForegroundColor Cyan
-            Write-Host $pubkey -ForegroundColor White
-        } else {
-            Write-Host "Failed to create SSH key!" -ForegroundColor Red
-            return $null
+        $recreate = Read-Host "Do you want to recreate the SSH key? (y/N)"
+        if ($recreate -notin @("y", "Y")) {
+            return
         }
     }
 
-    #return $pubkey
+    # Create .ssh directory if it doesn't exist
+    if (-not (Test-Path $sshDir)) {
+        try {
+            New-Item -ItemType Directory -Path $sshDir -Force | Out-Null
+            Write-Host "Created SSH directory: $sshDir" -ForegroundColor Green
+        } catch {
+            Write-Host "Failed to create SSH directory: $sshDir" -ForegroundColor Red
+            Write-Host $_.Exception.Message -ForegroundColor Red
+            return
+        }
+    }
+
+    # Find ssh-keygen
+    $sshKeygenCmd = ""
+    if (Get-Command ssh-keygen -ErrorAction SilentlyContinue) {
+        $sshKeygenCmd = "ssh-keygen"
+    } elseif (Get-Command ssh-keygen.exe -ErrorAction SilentlyContinue) {
+        $sshKeygenCmd = "ssh-keygen.exe"
+    } elseif (Test-Path "C:\Windows\System32\OpenSSH\ssh-keygen.exe") {
+        $sshKeygenCmd = "C:\Windows\System32\OpenSSH\ssh-keygen.exe"
+    } else {
+        Write-Host "Cannot find ssh-keygen or ssh-keygen.exe in PATH. Please install OpenSSH and try again." -ForegroundColor Red
+        return
+    }
+
+    # Generate SSH key
+    & $sshKeygenCmd""
+
+    if (Test-Path $keyPath) {
+        Write-Host "SSH key created successfully!" -ForegroundColor Green
+        $pubkey = Get-Content $keyPath -Raw | Out-String
+        $pubkey = $pubkey.Trim()
+        Write-Host "Public key content:" -ForegroundColor Cyan
+        Write-Host $pubkey -ForegroundColor White
+    } else {
+        Write-Host "Failed to create SSH key!" -ForegroundColor Red
+        return $null
+    }
 }
 
 # Function to read SSH key without displaying (for internal use)
